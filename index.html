@@ -16,8 +16,12 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
-      background-size: cover;
+      background:
+        url('https://quiz-desconto-energia-ordx.vercel.app/Logo%20Igreen%20Verde%20fundo%20Branco%20-%20Verde.png') no-repeat center,
+        url('https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: 180px, cover;
+      background-position: top center, center;
+      background-repeat: no-repeat, no-repeat;
       backdrop-filter: brightness(0.95);
       display: flex;
       justify-content: center;
@@ -27,7 +31,7 @@
     }
 
     .quiz-container {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.96);
       border-radius: 12px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
       width: 100%;
@@ -47,20 +51,7 @@
     h1 {
       font-size: 1.5em;
       color: #2e7d32;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    h1 img {
-      height: 40px;
-      width: auto;
-    }
-
-    .question {
-      margin: 20px 0;
-      text-align: left;
+      margin-bottom: 20px;
     }
 
     input[type="text"],
@@ -95,21 +86,18 @@
       background-color: #2e7d32;
     }
 
-    .hidden {
-      display: none;
-    }
-
     @media (max-width: 600px) {
-      .quiz-container {
-        padding: 20px;
+      body {
+        background-size: 120px, cover;
+        background-position: top center, center;
       }
 
       h1 {
         font-size: 1.2em;
       }
 
-      h1 img {
-        height: 30px;
+      .quiz-container {
+        padding: 20px;
       }
     }
   </style>
@@ -119,20 +107,20 @@
     <form id="quizForm">
       <!-- Etapa 1 -->
       <div class="quiz-step active">
-        <h1><img src="https://quiz-desconto-energia-ordx.vercel.app/Logo%20Igreen%20Verde%20fundo%20Branco%20-%20Verde.png" alt="Logo"> Que tal um desconto em sua conta de energia?</h1>
+        <h1>Que tal um desconto em sua conta de energia?</h1>
         <button type="button" class="btn" onclick="nextStep()">Começar</button>
       </div>
 
       <!-- Etapa 2 -->
       <div class="quiz-step">
-        <h1><img src="https://quiz-desconto-energia-ordx.vercel.app/Logo%20Igreen%20Verde%20fundo%20Branco%20-%20Verde.png" alt="Logo"> Qual seu gasto médio mensal?</h1>
+        <h1>Qual seu gasto médio mensal?</h1>
         <input type="text" id="gasto" placeholder="Ex: R$357,99" maxlength="7" oninput="formatCurrency(this)">
         <button type="button" class="btn" onclick="nextStep()">Próximo</button>
       </div>
 
       <!-- Etapa 3 -->
       <div class="quiz-step">
-        <h1><img src="https://quiz-desconto-energia-ordx.vercel.app/Logo%20Igreen%20Verde%20fundo%20Branco%20-%20Verde.png" alt="Logo"> Qual seu consumo médio mensal?</h1>
+        <h1>Qual seu consumo médio mensal?</h1>
         <label><input type="radio" name="consumo" value="100-300"> 100kWh a 300kWh</label>
         <label><input type="radio" name="consumo" value="300-500"> 300kWh a 500kWh</label>
         <label><input type="radio" name="consumo" value="500+"> Mais de 500kWh</label>
@@ -141,21 +129,21 @@
 
       <!-- Etapa 4 -->
       <div class="quiz-step">
-        <h1><img src="https://quiz-desconto-energia-ordx.vercel.app/Logo%20Igreen%20Verde%20fundo%20Branco%20-%20Verde.png" alt="Logo"> Informe seu CEP</h1>
+        <h1>Informe seu CEP</h1>
         <input type="text" id="cep" maxlength="9" placeholder="12345-678" oninput="formatCEP(this)">
         <button type="button" class="btn" onclick="nextStep()">Próximo</button>
       </div>
 
       <!-- Etapa 5: Cálculo -->
       <div class="quiz-step" id="resultStep">
-        <h1><img src="https://quiz-desconto-energia-ordx.vercel.app/Logo%20Igreen%20Verde%20fundo%20Branco%20-%20Verde.png" alt="Logo"> Resultado</h1>
+        <h1>Resultado</h1>
         <p id="economiaText"></p>
         <button type="button" class="btn" onclick="nextStep()">Fale com um especialista</button>
       </div>
 
       <!-- Etapa 6: Contato -->
       <div class="quiz-step">
-        <h1><img src="https://quiz-desconto-energia-ordx.vercel.app/Logo%20Igreen%20Verde%20fundo%20Branco%20-%20Verde.png" alt="Logo"> Preencha e fale com a gente</h1>
+        <h1>Preencha e fale com a gente</h1>
         <input type="text" id="nome" placeholder="Seu nome">
         <input type="tel" id="telefone" placeholder="(11) 99999-9999" maxlength="15" oninput="formatTelefone(this)">
         <input type="email" id="email" placeholder="seu@email.com">
