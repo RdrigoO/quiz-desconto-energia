@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Igreen Energy</title>
+
+  <!-- ===== CSS ===== -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1599988125784-36178a1cfdcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: brightness(0.9);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .quiz-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .btn {
+      background-color: #388e3c;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #2e7d32;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    hr {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== HTML - Estrutura do Quiz Funil ===== -->
+  <div class="quiz-container">
+    <div class="step active" id="step1">
+      <h2>Que tal um desconto em sua conta de energia solar?</h2>
+      <button class="btn" onclick="nextStep()">Quero saber mais</button>
+    </div>
+
+    <div class="step" id="step2">
+      <h2>Qual seu gasto médio mensal com a conta de energia elétrica?</h2>
+      <input type="text" id="valorConta" placeholder="Ex: 250">
+      <button class="btn" onclick="nextStep()">Continuar</button>
+    </div>
+
+    <div class="step" id="step3">
+      <h2>Qual seu consumo médio mensal?</h2>
+      <label><input type="radio" name="consumo" value="100-300"> 100kWh a 300kWh</label><br>
+      <label><input type="radio" name="consumo" value="300-500"> 300kWh a 500kWh</label><br>
+      <label><input type="radio" name="consumo" value="500+"> Mais de 500kWh</label><br>
+      <button class="btn" onclick="nextStep()">Avançar</button>
+    </div>
+
+    <div class="step" id="step4">
+      <h2>Informe seu CEP</h2>
+      <input type="text" id="cep" placeholder="XXXXX-XXX">
+      <button class="btn" onclick="nextStep()">Calcular economia</button>
+    </div>
+
+    <div class="step" id="step5">
+      <h2>Sua Economia com Energia Solar</h2>
+      <div id="resultadoEconomia"></div>
+      <button class="btn" onclick="nextStep()">Fale com um consultor</button>
+    </div>
+
+    <div class="step" id="step6">
+      <h2>Para mais informações, preencha seus dados:</h2>
+      <input type="text" id="nome" placeholder="Nome completo">
+      <input type="tel" id="telefone" placeholder="Telefone com DDD">
+      <input type="email" id="email" placeholder="E-mail">
+      <button class="btn" onclick="finalizar()">Falar no WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    let currentStep = 1;
+
+    function nextStep() {
+      if (currentStep === 2) {
+        const valor = document.getElementById("valorConta").value;
+        if (!valor || isNaN(valor)) {
+          alert("Por favor, informe um valor válido.");
+          return;
+        }
+      }
+
+      if (currentStep === 3) {
+        const consumo = document.querySelector('input[name="consumo"]:checked');
+        if (!consumo) {
+          alert("Por favor, selecione uma opção.");
+          return;
+        }
+      }
+
+      if (currentStep === 4) {
+        const cep = document.getElementById("cep").value;
+        const cepRegex = /^\d{5}-?\d{3}$/;
+        if (!cepRegex.test(cep)) {
+          alert("Informe um CEP válido no formato XXXXX-XXX.");
+          return;
+        }
+        calcularEconomia();
+      }
+
+      document.getElementById(`step${currentStep}`).classList.remove('active');
+      currentStep++;
+      document.getElementById(`step${currentStep}`).classList.add('active');
+    }
+
+    function calcularEconomia() {
+      const valorConta = parseFloat(document.getElementById("valorConta").value);
+      const economiaMensal = valorConta * 0.10;
+      const economiaAnual = economiaMensal * 12;
+
+      const kwhEconomizado = economiaMensal / 0.66;
+      const co2Evitado = kwhEconomizado * 0.05 * 12;
+
+      const resultado = `
+        <p>Você pode economizar <strong class="highlight">R$ ${economiaMensal.toFixed(2)}</strong> todo mês!</p>
+        <p>Em 1 ano, isso representa <strong class="highlight">R$ ${economiaAnual.toFixed(2)}</strong> no seu bolso.</p>
+        <hr>
+        <p>🌱 Além disso, você estará contribuindo com o planeta!</p>
+        <p>Essa economia evita a emissão de cerca de <strong class="highlight">${co2Evitado.toFixed(1)} kg</strong> de CO₂ por ano – o equivalente ao plantio de várias árvores 🌳.</p>
+        <p><strong class="highlight">E o melhor: sem custos de adesão ou fidelização!</strong></p>
+      `;
+
+      document.getElementById("resultadoEconomia").innerHTML = resultado;
+    }
+
+    function finalizar() {
+      const nome = document.getElementById("nome").value.trim();
+      const telefone = document.getElementById("telefone").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      if (!nome || !telefone || !email) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
+
+      const msg = `Olá, me chamo ${nome}. Gostaria de saber mais sobre como reduzir minha conta de energia!`;
+      const url = `https://wa.me/5511977073268?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
