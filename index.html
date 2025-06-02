@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Quiz Igreen Energy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ===== CSS ===== -->
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -16,7 +21,7 @@
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      padding: 40px 20px;
+      padding: 20px;
     }
 
     .quiz-container {
@@ -24,8 +29,8 @@
       border-radius: 12px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
       width: 100%;
-      max-width: 500px;
-      padding: 30px;
+      max-width: 480px;
+      padding: 24px;
       text-align: center;
     }
 
@@ -41,11 +46,12 @@
       background-color: #388e3c;
       color: #fff;
       border: none;
-      padding: 12px 20px;
+      padding: 14px 20px;
       border-radius: 5px;
       font-size: 1em;
       margin-top: 20px;
       cursor: pointer;
+      width: 100%;
       transition: background-color 0.3s;
     }
 
@@ -57,11 +63,19 @@
     input[type="email"],
     input[type="tel"] {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
       margin-bottom: 20px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      font-size: 1em;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+      font-size: 1em;
     }
 
     .highlight {
@@ -72,12 +86,25 @@
     hr {
       margin: 20px 0;
     }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.3em;
+      }
+
+      .quiz-container {
+        padding: 20px 16px;
+      }
+
+      .btn {
+        font-size: 1em;
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 
 <body>
-
-  <!-- ===== HTML - Estrutura do Quiz Funil ===== -->
   <div class="quiz-container">
     <div class="step active" id="step1">
       <h2>Que tal um desconto em sua conta de energia solar?</h2>
@@ -92,9 +119,9 @@
 
     <div class="step" id="step3">
       <h2>Qual seu consumo médio mensal?</h2>
-      <label><input type="radio" name="consumo" value="100-300"> 100kWh a 300kWh</label><br>
-      <label><input type="radio" name="consumo" value="300-500"> 300kWh a 500kWh</label><br>
-      <label><input type="radio" name="consumo" value="500+"> Mais de 500kWh</label><br>
+      <label><input type="radio" name="consumo" value="100-300"> 100kWh a 300kWh</label>
+      <label><input type="radio" name="consumo" value="300-500"> 300kWh a 500kWh</label>
+      <label><input type="radio" name="consumo" value="500+"> Mais de 500kWh</label>
       <button class="btn" onclick="nextStep()">Avançar</button>
     </div>
 
@@ -119,7 +146,7 @@
     </div>
   </div>
 
-  <!-- ===== JavaScript ===== -->
+  <!-- ===== JS ===== -->
   <script>
     let currentStep = 1;
 
