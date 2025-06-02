@@ -67,7 +67,9 @@
 
     .answers label {
       display: block;
-      margin: 10px 0;
+      margin: 12px 0;
+      text-align: left;
+      padding-left: 10px;
     }
 
     .btn {
@@ -113,17 +115,19 @@
 
       <!-- Etapa 2 -->
       <div class="quiz-step">
-        <h1>Qual seu gasto médio mensal?</h1>
-        <input type="text" id="gasto" placeholder="Ex: R$357,99" maxlength="7" oninput="formatCurrency(this)">
+        <h1>Qual seu gasto médio mensal com a sua conta de energia elétrica?</h1>
+        <input type="text" id="gasto" placeholder="Ex: R$357,99" maxlength="9" oninput="formatCurrency(this)">
         <button type="button" class="btn" onclick="nextStep()">Próximo</button>
       </div>
 
       <!-- Etapa 3 -->
       <div class="quiz-step">
         <h1>Qual seu consumo médio mensal?</h1>
-        <label><input type="radio" name="consumo" value="100-300"> 100kWh a 300kWh</label>
-        <label><input type="radio" name="consumo" value="300-500"> 300kWh a 500kWh</label>
-        <label><input type="radio" name="consumo" value="500+"> Mais de 500kWh</label>
+        <div class="answers">
+          <label><input type="radio" name="consumo" value="100-300"> 100kWh a 300kWh</label>
+          <label><input type="radio" name="consumo" value="300-500"> 300kWh a 500kWh</label>
+          <label><input type="radio" name="consumo" value="500+"> Mais de 500kWh</label>
+        </div>
         <button type="button" class="btn" onclick="nextStep()">Próximo</button>
       </div>
 
@@ -186,7 +190,7 @@
     }
 
     function calcularDesconto() {
-      const gasto = document.getElementById("gasto").value.replace("R$", "").replace(".", "").replace(",", ".");
+      const gasto = document.getElementById("gasto").value.replace("R$", "").replace(/\./g, "").replace(",", ".");
       const mensal = parseFloat(gasto);
       if (isNaN(mensal)) return;
 
